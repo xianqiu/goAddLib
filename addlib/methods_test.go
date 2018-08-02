@@ -37,10 +37,10 @@ func TestDistrictCodes(t *testing.T) {
 		in       string
 		expected int
 	}{
-		{GetCode("", "杭州", ""), 15},
-		{GetCode("", "北京", ""), 17},
-		{GetCode("", "重庆", ""), 41},
-		{GetCode("", "呼和浩特", ""), 12},
+		{GetCode("", "杭州", ""), 13},
+		{GetCode("", "北京", ""), 16},
+		{GetCode("", "重庆", ""), 38},
+		{GetCode("", "呼和浩特", ""), 9},
 		{"foo", 0},
 	}
 
@@ -235,10 +235,10 @@ func TestDistricts(t *testing.T) {
 		in       string
 		expected int
 	}{
-		{"杭州", 15},
-		{"北京", 17},
-		{"重庆", 41},
-		{"呼和浩特", 12},
+		{"杭州", 13},
+		{"北京", 16},
+		{"重庆", 38},
+		{"呼和浩特", 9},
 		{"foo", 0},
 	}
 
@@ -281,7 +281,6 @@ func BenchmarkGetCode(b *testing.B) {
 		}
 	}
 }
-
 
 // 加载测试数据test.add
 func init() {
