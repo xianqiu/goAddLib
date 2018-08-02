@@ -44,7 +44,13 @@ const (
 )
 
 func init() {
-	defaultDataPath := "lib.add"
+	githubPath := "github.com\\nullgo\\addlib\\lib.add"
+	defaultDataPath := path.Join(os.Getenv("GOPATH"), "src", githubPath)
+	err := Init(defaultDataPath)
+	if err == nil {
+		return
+	}
+	defaultDataPath = "lib.add"
 	Init(defaultDataPath)
 }
 
