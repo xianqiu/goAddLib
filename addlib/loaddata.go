@@ -36,9 +36,6 @@ const (
 	levelDistrict = "district"
 )
 
-// 默认的地址库文件地址
-var DataPath = "lib.add"
-
 // 数据文件的名称
 const (
 	dataProvince = "provinces.data"
@@ -47,20 +44,30 @@ const (
 )
 
 func init() {
+	defaultDataPath := "lib.add"
+	Init(defaultDataPath)
+}
+
+// 初始化
+func Init(dataPath string) error {
 	dataFiles := []string{dataProvince, dataCity, dataDistrict}
-	if !checkData(DataPath, dataFiles) {
-		panic("miss data files")
+	if !checkData(dataPath, dataFiles) {
+		return errors.New("miss data files")
 	}
 	libIndexCache := make(map[string]string) // 用于记录key对应的标准地址名称
+	// 初始化全局变量(防止Init函数被多次调用)
+	libItems = make(map[string]*libItem)
+	libIndex = make(map[string]string)
 	for _, file := range dataFiles {
-		err := loadSingleDataFile(path.Join(DataPath, file), &libItems, &libIndex, &libIndexCache)
+		err := loadSingleDataFile(path.Join(dataPath, file), &libItems, &libIndex, &libIndexCache)
 		if err != nil {
-			panic(err)
+			return err
 		}
 	}
 
 	// 删除autoIndex产生的空索引.
 	cleanIndex(&libIndex)
+	return nil
 }
 
 // 按行异步读取单个数据文件

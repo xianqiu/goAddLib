@@ -281,3 +281,10 @@ func BenchmarkGetCode(b *testing.B) {
 		}
 	}
 }
+
+
+// 加载测试数据test.add
+func init() {
+	testDataPath := "test.add"
+	Init(testDataPath)
+}
