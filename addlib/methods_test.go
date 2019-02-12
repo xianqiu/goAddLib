@@ -173,8 +173,8 @@ func TestParseCode(t *testing.T) {
 	}
 	for _, tt := range tests {
 		got, _ := ParseCode(tt.in)
-		strGot := fmt.Sprintf("%s-%s-%s", got.provinceCode, got.cityCode, got.districtCode)
-		strExpected := fmt.Sprintf("%s-%s-%s", tt.expected.provinceCode, tt.expected.cityCode, tt.expected.districtCode)
+		strGot := fmt.Sprintf("%s-%s-%s", got.ProvinceCode, got.CityCode, got.DistrictCode)
+		strExpected := fmt.Sprintf("%s-%s-%s", tt.expected.ProvinceCode, tt.expected.CityCode, tt.expected.DistrictCode)
 		if strGot != strExpected {
 			t.Errorf("expected: %s, got: %s", strExpected, strGot)
 		}
@@ -196,8 +196,8 @@ func TestParseAddress(t *testing.T) {
 	}
 	for _, tt := range tests {
 		got, _ := ParseAddress(tt.inProvince, tt.inCity, tt.inDistrict)
-		strGot := fmt.Sprintf("%s-%s-%s", got.province, got.city, got.district)
-		strExpected := fmt.Sprintf("%s-%s-%s", tt.expected.province, tt.expected.city, tt.expected.district)
+		strGot := fmt.Sprintf("%s-%s-%s", got.Province, got.City, got.District)
+		strExpected := fmt.Sprintf("%s-%s-%s", tt.expected.Province, tt.expected.City, tt.expected.District)
 		if strGot != strExpected {
 			t.Errorf("expected: %s, got: %s", strExpected, strGot)
 		}

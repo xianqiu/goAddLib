@@ -44,13 +44,12 @@ const (
 )
 
 func init() {
-	githubPath := "github.com\\nullgo\\addlib\\lib.add"
+	githubPath := "github.com\\xianqiu\\addlib\\lib.add"
 	defaultDataPath := path.Join(os.Getenv("GOPATH"), "src", githubPath)
 	err := Init(defaultDataPath)
 	if err == nil {
 		return
 	}
-	defaultDataPath = "lib.add"
 	Init(defaultDataPath)
 }
 
@@ -106,7 +105,6 @@ func checkData(filePath string, dataFiles []string) bool {
 	for _, file := range dataFiles {
 		_, err := os.Stat(path.Join(filePath, file))
 		if err != nil && os.IsNotExist(err) {
-			fmt.Println(path.Join(filePath, file))
 			return false
 		}
 	}

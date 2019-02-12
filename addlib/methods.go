@@ -6,15 +6,15 @@ import (
 )
 
 type Address struct {
-	province string
-	city     string
-	district string
+	Province string
+	City     string
+	District string
 }
 
 type AddressCodes struct {
-	provinceCode string
-	cityCode     string
-	districtCode string
+	ProvinceCode string
+	CityCode     string
+	DistrictCode string
 }
 
 // ---------------
@@ -133,14 +133,14 @@ func ParseCode(code string) (AddressCodes, error) {
 	k := len(parsedCodes)
 	switch k {
 	case 1:
-		addc.provinceCode = parsedCodes[0]
+		addc.ProvinceCode = parsedCodes[0]
 	case 2:
-		addc.provinceCode = parsedCodes[1]
-		addc.cityCode = parsedCodes[0]
+		addc.ProvinceCode = parsedCodes[1]
+		addc.CityCode = parsedCodes[0]
 	case 3:
-		addc.provinceCode = parsedCodes[2]
-		addc.cityCode = parsedCodes[1]
-		addc.districtCode = parsedCodes[0]
+		addc.ProvinceCode = parsedCodes[2]
+		addc.CityCode = parsedCodes[1]
+		addc.DistrictCode = parsedCodes[0]
 	default:
 		msg := fmt.Sprintf("invalid code, code = %s", code)
 		return addc, errors.New(msg)
@@ -173,25 +173,25 @@ func ParseAddress(provinceName string, cityName string, districtName string) (Ad
 	add := Address{"", "", ""}
 	if districtName != "" && cityName != "" {
 		if code := GetDistrictCode(cityName, districtName); code != "" {
-			add.district = GetName(code)
+			add.District = GetName(code)
 			cityCode := libItems[code].parent
-			add.city = GetName(cityCode)
-			add.province = GetName(libItems[cityCode].parent)
+			add.City = GetName(cityCode)
+			add.Province = GetName(libItems[cityCode].parent)
 			return add, nil
 		}
 	}
 
 	if cityName != "" {
 		if code := GetCityCode(cityName); code != "" {
-			add.city = GetName(code)
-			add.province = GetName(libItems[code].parent)
+			add.City = GetName(code)
+			add.Province = GetName(libItems[code].parent)
 			return add, nil
 		}
 	}
 
 	if provinceName != "" {
 		if code := GetProvinceCode(provinceName); code != "" {
-			add.province = GetName(code)
+			add.Province = GetName(code)
 			return add, nil
 		}
 	}
