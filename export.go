@@ -6,7 +6,6 @@ import (
 	"strings"
 )
 
-
 //export provinces
 func provinces() *C.char {
 	str := strings.Join(addlib.Provinces(), "\t")
@@ -95,6 +94,11 @@ func initialize(dataPath *C.char) *C.char {
 	return C.CString("")
 }
 
+
+/**
+ 进入goAddLib目录, 然后用如下命令生成动态链接库:
+ go build -buildmode=c-shared -o addlib.so ./export.go
+ */
 func main() {
 
 }
