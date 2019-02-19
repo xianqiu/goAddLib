@@ -7,8 +7,8 @@ import (
 )
 
 //export provinces
-func provinces() *C.char {
-	str := strings.Join(addlib.Provinces(), "\t")
+func provinces(mainland bool) *C.char {
+	str := strings.Join(addlib.Provinces(mainland), "\t")
 	return C.CString(str)
 }
 
@@ -39,8 +39,8 @@ func parseAddress(provinceName *C.char, cityName *C.char, districtName *C.char) 
 }
 
 //export provinceCodes
-func provinceCodes() *C.char {
-	str := strings.Join(addlib.ProvinceCodes(), "\t")
+func provinceCodes(mainland bool) *C.char {
+	str := strings.Join(addlib.ProvinceCodes(mainland), "\t")
 	return C.CString(str)
 }
 

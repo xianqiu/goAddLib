@@ -17,13 +17,38 @@ type AddressCodes struct {
 	DistrictCode string
 }
 
+
 // ---------------
 // 所有的外部方法 |
 // --------------
 
 // 输出所有省编码
-func ProvinceCodes() []string {
-	return libItems[ROOT].children
+func ProvinceCodes(mainland bool) []string {
+	islands := [3]string{"CN002000000", "CN027000000", "CN029000000"}
+	fullResult := libItems[ROOT].children
+	//剔除港澳台
+	noIslands := make([]string, len(fullResult) - 3)
+	isIsland := false
+	if mainland == true {
+		k := 0
+		for _, v := range fullResult {
+			for i := 0; i < len(islands); i++ {
+				if v == islands[i] {
+					isIsland = true
+					break
+				}
+			}
+			if isIsland {
+				isIsland = false
+				continue
+			}
+			noIslands[k] = v
+			k++
+		}
+		return noIslands
+	} else {
+		return fullResult
+	}
 }
 
 // 输入省编码, 输出它所管辖的市编码
@@ -202,9 +227,9 @@ func ParseAddress(provinceName string, cityName string, districtName string) (Ad
 }
 
 // 输出省名列表
-func Provinces() []string {
+func Provinces(mainland bool) []string {
 	provinces := make([]string, 0)
-	for _, code := range ProvinceCodes() {
+	for _, code := range ProvinceCodes(mainland) {
 		provinces = append(provinces, GetName(code))
 	}
 	return provinces

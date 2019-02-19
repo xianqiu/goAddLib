@@ -11,7 +11,7 @@ func test() {
 	t1 := time.Now()
 	for i:=0; i < 100; i++ {
 		go func () {
-			for _, p := range addlib.Provinces() {
+			for _, p := range addlib.Provinces(true) {
 				for _, c := range addlib.Cities(p) {
 					for _, d := range addlib.Districts(c) {
 						_ = d

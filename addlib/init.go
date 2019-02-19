@@ -50,6 +50,7 @@ func init() {
 	if err == nil {
 		return
 	}
+	defaultDataPath = "lib.add"
 	Init(defaultDataPath)
 }
 

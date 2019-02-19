@@ -7,8 +7,12 @@ import (
 
 func TestProvinceCodes(t *testing.T) {
 	expected := 34
-	if got := len(ProvinceCodes()); got != expected {
+	expectedMainland := 31
+	if got := len(ProvinceCodes(false)); got != expected {
 		t.Errorf("expected: %d, got: %d", expected, got)
+	}
+	if got := len(ProvinceCodes(true)); got != expectedMainland {
+		t.Errorf("expected: %d, got: %d", expectedMainland, got)
 	}
 }
 
@@ -206,7 +210,11 @@ func TestParseAddress(t *testing.T) {
 
 func TestProvinces(t *testing.T) {
 	expected := 34
-	if got := len(Provinces()); got != expected {
+	expectedMainland := 31
+	if got := len(Provinces(false)); got != expected {
+		t.Errorf("expected: %d, got: %d", expected, got)
+	}
+	if got := len(Provinces(true)); got != expectedMainland {
 		t.Errorf("expected: %d, got: %d", expected, got)
 	}
 }
@@ -250,7 +258,7 @@ func TestDistricts(t *testing.T) {
 }
 
 func TestGetCode2(t *testing.T) {
-	for _, p := range Provinces() {
+	for _, p := range Provinces(false) {
 		pGot := GetName(GetCode(p, "", ""))
 		if p != pGot {
 			t.Errorf("expected: %s, got: %s", p, pGot)
@@ -272,7 +280,7 @@ func TestGetCode2(t *testing.T) {
 
 func BenchmarkGetCode(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		for _, p := range Provinces() {
+		for _, p := range Provinces(false) {
 			for _, c := range Cities(p) {
 				for _, d := range Districts(c) {
 					fmt.Println(p, c, d)
